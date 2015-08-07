@@ -35,10 +35,10 @@ public class CSVToJson {
 		try{
 		String [] coordinates = info[10].split(",");
 
-    	obj.put("transaction_id",info[0]);
-    	obj.put("credit_card_type",info[1]);
-    	obj.put("credit_card_number",info[2]);
-    	obj.put("retailer_name",info[3]);
+    	obj.put("transactionId",info[0]);
+    	obj.put("creditCardType",info[1]);
+    	obj.put("creditCardNumber",info[2]);
+    	obj.put("retailerName",info[3]);
     	obj.put("amount",info[4]);
     	obj.put("street",info[5]);
     	obj.put("city",info[6]);
