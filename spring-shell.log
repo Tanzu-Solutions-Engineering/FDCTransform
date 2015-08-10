@@ -1,0 +1,23 @@
+// XD Shell 1.1.0.RELEASE log opened at 2015-08-08 09:25:09
+// [failed] module upload --name csvTransformer --type processor csvTransformationMoule/target/csvtojson-0.0.1-SNAPSHOT.jar
+q
+// XD Shell 1.1.0.RELEASE log closed at 2015-08-08 09:26:11
+// XD Shell 1.1.0.RELEASE log opened at 2015-08-08 09:26:32
+module upload --name csvTransformer --type processor csvTransformationModule/target/csvtojson-0.0.1-SNAPSHOT.jar
+exit
+// XD Shell 1.1.0.RELEASE log closed at 2015-08-08 09:27:58
+// XD Shell 1.1.0.RELEASE log opened at 2015-08-08 09:28:30
+// [failed] module upload --name csvTransformer --type processor csvTransformationModule/target/csvtojson-0.0.1-SNAPSHOT.jar
+// [failed] stream create --name filetest --definition "file --outputType=text/plain | splitter --expression=payload.split('\\n') | csvTransformer | object-to-json | transform --script=file:type_conversion.groovy | file --name=orders" --deploy
+stream create --name filetest --definition "dump:file --outputType=text/plain | splitter --expression=payload.split('\\n') | csvTransformer | object-to-json | transform --script=file:type_conversion.groovy | file --name=orders" --deploy
+// [failed] stream create --name filetest2 --definition "file --outputType=text/plain --dir=/tmp/xd/output | splitter --expression=payload.split('\\n') | file --name=my_file" --deploy
+stream create --name filetest2 --definition "file --outputType=text/plain --dir=/tmp/xd/output | splitter --expression=payload.split('\\n') | dump:file --name=my_file" --deploy
+exit
+// XD Shell 1.1.0.RELEASE log closed at 2015-08-08 09:46:01
+// XD Shell 1.1.0.RELEASE log opened at 2015-08-08 09:46:09
+stream destroy filetest
+stream destroy filetest2
+module delete --name processor:csvTransformer
+module upload --name csvTransformer --type processor csvTransformationModule/target/csvtojson-0.0.1-SNAPSHOT.jar
+stream create --name filetest --definition "dump:file --outputType=text/plain | splitter --expression=payload.split('\\n') | csvTransformer | object-to-json | transform --script=file:type_conversion.groovy | file --name=orders" --deploy
+stream create --name filetest2 --definition "file --outputType=text/plain --dir=/tmp/xd/output | splitter --expression=payload.split('\\n') | dump:file --name=my_file" --deploy 

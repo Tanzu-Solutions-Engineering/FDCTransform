@@ -1,0 +1,12 @@
+
+Destroy old streams
+stream destroy filetest
+stream destroy filetest2
+module delete --name processor:csvTransformer
+
+# Upload module
+module upload --name csvTransformer --type processor csvTransformationModule/target/csvtojson-0.0.1-SNAPSHOT.jar
+
+stream create --name filetest --definition "dump:file --outputType=text/plain | splitter --expression=payload.split('\\n') | csvTransformer | object-to-json | transform --script=file:type_conversion.groovy | file --name=orders" --deploy
+
+stream create --name filetest2 --definition "file --outputType=text/plain --dir=/tmp/xd/output | splitter --expression=payload.split('\\n') | dump:file --name=my_file" --deploy 
